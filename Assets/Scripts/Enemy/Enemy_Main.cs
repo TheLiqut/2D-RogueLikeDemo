@@ -55,7 +55,7 @@ public class Enemy_Main : Humanoid,ITakingDamage
         enemyImageBody.sortingOrder = -(int)transform.localPosition.y;
     }
 
-    public void FaceToPlayer()
+    public void FaceToPlayer()//面向玩家
     {
         if (transform.position.x < targetTrans.gameObject.transform.position.x)
         {
@@ -74,7 +74,7 @@ public class Enemy_Main : Humanoid,ITakingDamage
         }
     }
 
-    public void TakeDamage(float _f)
+    public void TakeDamage(float _f)//承受伤害
     {
         if(isDead == false)
         {
@@ -91,22 +91,22 @@ public class Enemy_Main : Humanoid,ITakingDamage
         }
     }
 
-    public void AN_to_Idel_State()
+    public void AN_to_Idel_State()//动画中调用-前往静止状态
     {
         fsm.SetState(StateType.IDEL);
     }
 
-    public void AN_to_Move_State()
+    public void AN_to_Move_State()//动画中调用-前往移动状态
     {
         fsm.SetState(StateType.MOVE);
     }
 
-    public void AN_DeathEvent()
+    public void AN_DeathEvent()//敌人死亡
     {
         Main_EventCenter.instance.E_OnEnemyDead();
     }
 
-    public void EnemyWin()
+    public void EnemyWin()//敌人胜利后
     {
         if(isDead == false)
         {
