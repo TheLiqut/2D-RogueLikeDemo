@@ -84,6 +84,7 @@ public class Player_Main : Humanoid,ITakingDamage
         GunController();//自动瞄准敌人
 
         playerImageBody.sortingOrder = -(int)transform.localPosition.y;//改变角色图层
+        CheckDeath();
     }
 
     private void FixedUpdate()
@@ -115,7 +116,7 @@ public class Player_Main : Humanoid,ITakingDamage
         if (isDead != true)
         {
             //玩家未死亡
-            CheckDeath();
+
             moveVec.x = Input.GetAxisRaw("Horizontal");
             moveVec.y = Input.GetAxisRaw("Vertical");
 
@@ -143,16 +144,6 @@ public class Player_Main : Humanoid,ITakingDamage
             if (startShooting && hurting != true)
             {
                 GunFire();
-            }
-        }
-        else
-        {
-            bool deadChecked = false;
-            //玩家死亡
-            if (deadChecked == false)
-            {
-                Main_EventCenter.instance.E_OnPlayerDead();
-                deadChecked = true;
             }
         }
     }
@@ -227,8 +218,14 @@ public class Player_Main : Humanoid,ITakingDamage
     {
         if (theHp <= 0)
         {
-            Main_EventCenter.instance.E_OnPlayerDead();
-            theAn.Play("Dead" + selfID.ToString());
+            bool deadChecked = false;
+            //玩家死亡
+            if (deadChecked == false)
+            {
+                Main_EventCenter.instance.E_OnPlayerDead();
+                theAn.Play("Dead" + selfID.ToString());
+                deadChecked = true;
+            }
         }
     }
 }

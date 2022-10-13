@@ -15,6 +15,6 @@ public class TempRespaw : MonoBehaviour
     {
         Player_Main.instance.theHp = 10 + Player_Main.instance.theLevel_Hp;
         Player_Main.instance.transform.position = new Vector3(0, 0, 0);
-        Player_Main.instance.isDead = false;
+        Player_Main.instance.theAn.Play("Idel" + Player_Main.instance.selfID.ToString());
     }
 }
