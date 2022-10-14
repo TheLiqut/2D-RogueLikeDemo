@@ -728,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   w_Saver: {fileID: 93362183568448763}
-  weapenData: {fileID: 11400000, guid: ac1c52a718cd0d341b2f74b380395480, type: 2}
+  weapenData: {fileID: 11400000, guid: 3d000637a4cb4d142aa2f60d567ed52c, type: 2}
   thisWeapenID: 0
   checking: 0
   unLocked: 0
