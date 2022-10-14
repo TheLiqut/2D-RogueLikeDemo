@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CareraControl : MonoBehaviour
+public class CameraControl : MonoBehaviour
 {
     public Cinemachine.CinemachineVirtualCamera CineMain;
 
