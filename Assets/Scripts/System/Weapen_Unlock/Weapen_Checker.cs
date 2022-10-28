@@ -32,7 +32,8 @@ public class Weapen_Checker : MonoBehaviour
 
     void Update()
     {
-        if(checking == true && Input.GetButtonDown("Check"))
+        if(checking == true && Player_Main.instance.inputCenter.Check_ButtonDown() 
+            && Player_Main.instance.inputCenter.state == InputCenter.CheckState.readyGetWeapen)
         {
             if(unLocked == true)
             {
@@ -50,6 +51,7 @@ public class Weapen_Checker : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             checking = true;
+            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.readyGetWeapen);
             showInfo.SetActive(true);
         }
     }
@@ -59,6 +61,7 @@ public class Weapen_Checker : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             checking = false;
+            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.def);
             showInfo.SetActive(false);
         }
     }
@@ -105,6 +108,7 @@ public class Weapen_Checker : MonoBehaviour
             default:
                 break;
         }
+        //Main_EventCenter.instance.E_OnGetPlayerCurrentWpName(Player_Main.instance.usingWeapenName);
     }
 
     public void GetWeapenName()

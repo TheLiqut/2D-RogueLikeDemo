@@ -13,6 +13,9 @@ public class MapMaker : MonoBehaviour
     public float xPosition;
     public float yPosition;
     public Transform startMakePoint;
+    public float scanMapDelay;
+    public AstarPath astarPath;
+    public bool pathScaned;
 
     //public GameObject lastMake;
     public List<GameObject> lastTrans = new List<GameObject>();
@@ -33,8 +36,25 @@ public class MapMaker : MonoBehaviour
             RoomRandomPos(gridList[i]);
         }
         startMakePoint.transform.position = new Vector3(0, 0, 0);
-    }
 
+        //astarPath.Scan();
+    }
+    private void Update()
+    {
+        if(pathScaned == false)
+        {
+            if(scanMapDelay > 0)
+            {
+                scanMapDelay -= Time.deltaTime;
+            }
+            else if(scanMapDelay <= 0)
+            {
+                pathScaned = true;
+                astarPath.Scan();
+            }
+        }
+    }
+    
     private List<GameObject> RandomGrid(List<GameObject> myList)
     {
 

@@ -11,9 +11,9 @@ public class Player_LevelWorker : MonoBehaviour
     {
         if(started == false)
         {
-            Debug.Log(player.theLevel_Hp);
-            player.theHp += player.theLevel_Hp;
-            started = true;
+            //player.theHp += player.theLevel_Hp;
+            //Main_EventCenter.instance.E_OnGetPlayerCurrentHp(player.theHp);
+            //started = true;
         }
     }
 }

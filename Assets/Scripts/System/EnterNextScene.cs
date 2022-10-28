@@ -22,8 +22,9 @@ public class EnterNextScene : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.readyEnterNextScene);
+            UI_Manager.instance.infoMain.SetActive(true);
             canCheck = true;
-            showInfo.SetActive(true);
         }
     }
 
@@ -31,9 +32,10 @@ public class EnterNextScene : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            canCheck = false;
-            showInfo.SetActive(false);
+            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.def);
+            UI_Manager.instance.infoMain.SetActive(false);
             showInfo2.SetActive(false);
+            canCheck = false;
         }
     }
 
@@ -44,7 +46,7 @@ public class EnterNextScene : MonoBehaviour
 
     void Update()
     {
-        if (canCheck == true && Input.GetButtonDown("Check"))
+        if (Player_Main.instance.inputCenter.state == InputCenter.CheckState.readyEnterNextScene && Player_Main.instance.inputCenter.Check_ButtonDown() && canCheck == true)
         {
             if(isIntoBossRoom == false)
             {
@@ -61,7 +63,7 @@ public class EnterNextScene : MonoBehaviour
                 else
                 {
                     showInfo2.SetActive(true);
-                    showInfo.SetActive(false); 
+                    UI_Manager.instance.infoMain.SetActive(false);
                 }
             }
         }

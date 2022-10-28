@@ -44,9 +44,10 @@ public class Global_GameManager : MonoBehaviour
 
                 break;
             case 2://自动恢复
-                if (Player_Main.instance.theHp < (10 + Player_Main.instance.theLevel_Hp))
+                if (Player_Main.instance.theHp < Player_Main.instance.playerData.playerHp)
                 {
                     Player_Main.instance.theHp += (0.1f * Time.deltaTime);
+                    //Main_EventCenter.instance.E_OnGetPlayerCurrentHp(Player_Main.instance.theHp);
                 }
                 break;
             default:

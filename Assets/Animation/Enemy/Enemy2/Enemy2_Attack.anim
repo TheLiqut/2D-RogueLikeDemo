@@ -165,42 +165,42 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.31666666
-    functionName: AN_EnemyGunFire
+    functionName: AN_EnemyGunFire_BD
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.33333334
-    functionName: AN_EnemyGunFire
+    functionName: AN_EnemyGunFire_BD
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.35
-    functionName: AN_EnemyGunFire
+    functionName: AN_EnemyGunFire_BD
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.36666667
-    functionName: AN_EnemyGunFire
+    functionName: AN_EnemyGunFire_BD
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.38333333
-    functionName: AN_EnemyGunFire
+    functionName: AN_EnemyGunFire_BD
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.51666665
-    functionName: AN_to_Idel_State
+    functionName: AN_Event_FinishAttackAction
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

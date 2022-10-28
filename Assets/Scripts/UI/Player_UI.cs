@@ -11,19 +11,34 @@ public class Player_UI : MonoBehaviour
     public Text showWpText;
     public Text showSpeText;
     public bool fighting;
-    private void OnEnable()
+
+    private void Start()
     {
-        //showExText.text = player.playerEx.ToString();
-    }
-    void Start()
-    {
-        player = Player_Main.instance;
+        Main_EventCenter.instance.onGetPlayerCurrentHp += TakePlayerHp;
+        Main_EventCenter.instance.onGetPlayerCurrentEX += TakePlayerEX;
+        Main_EventCenter.instance.onGetPlayerCurrentWeapenName += TakePlayerWP_Name;
+
+        Main_EventCenter.instance.E_OnGetPlayerCurrentHp(Player_Main.instance.theHp);
+        Main_EventCenter.instance.E_OnGetPlayerCurrentEX(Player_Main.instance.playerEx);
+        Main_EventCenter.instance.E_OnGetPlayerCurrentWpName(Player_Main.instance.usingWeapenName);
     }
     private void FixedUpdate()
     {
-        showHpText.text = player.theHp.ToString();
-        showExText.text = player.playerEx.ToString();
-        showWpText.text = player.usingWeapenName;
         showSpeText.text = Global_GameManager.instance.speStateForPlayer_Now;
+    }
+
+    private void TakePlayerHp(float _f)
+    {
+        showHpText.text = _f.ToString();
+    }
+
+    private void TakePlayerEX(int _i)
+    {
+        showExText.text = _i.ToString();
+    }
+
+    private void TakePlayerWP_Name(string _s)
+    {
+        showWpText.text = _s;
     }
 }

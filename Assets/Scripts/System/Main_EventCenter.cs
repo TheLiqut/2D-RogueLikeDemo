@@ -13,8 +13,13 @@ public class Main_EventCenter : MonoBehaviour
     public event Action onStopChat;
     public event Action onStartResting;
     public event Action<Transform> onEnemyTransUpdate;
+    public event Action<GameObject> onEnemyRunAwayPointUpdate;
     public event Action onEnemyDead;
     public event Action onLevelFinished;
+
+    public event Action<float> onGetPlayerCurrentHp;
+    public event Action<int> onGetPlayerCurrentEX;
+    public event Action<string> onGetPlayerCurrentWeapenName;
 
     private void Awake()
     {
@@ -87,6 +92,14 @@ public class Main_EventCenter : MonoBehaviour
         }
     }
 
+    public void E_OnEnemyRunAwayTransUpdate(GameObject _t)
+    {
+        if (onEnemyRunAwayPointUpdate != null)
+        {
+            onEnemyRunAwayPointUpdate(_t);
+        }
+    }
+
     public void E_OnStopChat()//停止对话事件通知
     {
         if (onStopChat != null)
@@ -100,6 +113,32 @@ public class Main_EventCenter : MonoBehaviour
         if (onStartResting != null)
         {
             onStartResting();
+        }
+    }
+
+    //=====
+
+    public void E_OnGetPlayerCurrentHp(float _f)
+    {
+        if (onGetPlayerCurrentHp != null)
+        {
+            onGetPlayerCurrentHp(_f);
+        }
+    }
+
+    public void E_OnGetPlayerCurrentEX(int _i)
+    {
+        if (onGetPlayerCurrentEX != null)
+        {
+            onGetPlayerCurrentEX(_i);
+        }
+    }
+
+    public void E_OnGetPlayerCurrentWpName(string _s)
+    {
+        if (onGetPlayerCurrentWeapenName != null)
+        {
+            onGetPlayerCurrentWeapenName(_s);
         }
     }
 }

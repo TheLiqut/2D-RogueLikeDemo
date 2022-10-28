@@ -5,16 +5,23 @@ using UnityEngine.UI;
 
 public class Boss_UI : MonoBehaviour
 {
-    public Enemy_Main enemy;
+    public Enemy_Main_BD enemy;
     public Image fillImg;
     public float theFillNum;
 
+    public bool started;
+
     private void Start()
     {
-        theFillNum = 1 / enemy.theHp;
+        
     }
     private void Update()
     {
+        if(started == false)
+        {
+            started = true;
+            theFillNum = 1 / enemy.theHp;
+        }
         fillImg.fillAmount = enemy.theHp * theFillNum;
     }
 }

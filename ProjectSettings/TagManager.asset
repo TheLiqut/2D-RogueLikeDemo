@@ -8,6 +8,11 @@ TagManager:
   - Player_Attack
   - Enemy
   - Enemy_Attack
+  - Enemy_Track
+  - Enemy_Dodger
+  - Blocker
+  - EnemyRunAwayPoint
+  - EnemyRunAwayPoint_Mute
   layers:
   - Default
   - TransparentFX
@@ -25,9 +30,9 @@ TagManager:
   - RoomChecker
   - PlayerTracker
   - EnemyBulletLayer
-  - 
-  - 
-  - 
+  - Wall
+  - PlayerSeekerTarget
+  - Enemy_DodgeTracker
   - 
   - 
   - 

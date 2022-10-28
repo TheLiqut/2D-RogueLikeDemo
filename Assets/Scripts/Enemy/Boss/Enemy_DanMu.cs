@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy_DanMu : MonoBehaviour
 {
-    public Enemy_Main enemy;
+    public Enemy_Main_BD enemy;
     public float toPhase2Line;
     public GameObject bossBullet;
     public float firePower;

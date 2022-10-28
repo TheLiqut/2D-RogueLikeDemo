@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy_Main : Humanoid,ITakingDamage
 {
+    [Header("敌人数据")]
+    public Enemy_Data enemyData;
     public Player_Main player;
     public float speed;
     public Transform targetTrans;
@@ -19,6 +21,7 @@ public class Enemy_Main : Humanoid,ITakingDamage
     public int givePlayerExMin;
     public SpriteRenderer enemyImageBody;
     public bool canNotIntoHurtState;
+    public LayerMask seekPlayerBlockLayer;
     [Header("FSM")]
     private FSM_Controller fsm;
     private StateType stateType;

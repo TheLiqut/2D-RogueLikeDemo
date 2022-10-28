@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_Main : Humanoid,ITakingDamage
 {
     public static Player_Main instance;
+    public Player_Data playerData;
     [Header("=====属性=====")]
     public float sourceSpeed;
     public float speed;
@@ -21,6 +22,7 @@ public class Player_Main : Humanoid,ITakingDamage
     public bool canNotHit;
     public SaveManager saver;
     public SpriteRenderer playerImageBody;
+    public InputCenter inputCenter;
     [Header("=====索敌=====")]
     public GameObject aimPointForEnemy;
     public GameObject enemySeeker;
@@ -34,10 +36,14 @@ public class Player_Main : Humanoid,ITakingDamage
     public string usingWeapenName;
     [Header("=====当前的武器模式=====")]
     public WeapenMod weapenMod;
-    [Header("=====等级=====")]
-    public int theLevel_Hp;
+    //[Header("=====等级=====")]
+    //public int theLevel_Hp;
     [Header("=====特殊状态=====")]
     public SpeState speState;
+
+    private float LastHp;
+    private int LastEx;
+    private string LastWp;
 
     public enum WeapenMod
     {
@@ -72,6 +78,19 @@ public class Player_Main : Humanoid,ITakingDamage
         {
             transform.localScale = new Vector3(2, 2, 2);
         }
+
+        saver.Loader();
+        theHp = playerData.playerHp;
+        speed = playerData.speed;
+        sourceSpeed = playerData.speed;
+
+        Main_EventCenter.instance.E_OnGetPlayerCurrentHp(theHp);
+        Main_EventCenter.instance.E_OnGetPlayerCurrentEX(playerEx);
+        Main_EventCenter.instance.E_OnGetPlayerCurrentWpName(usingWeapenName);
+
+        LastHp = theHp;
+        LastEx = playerEx;
+        LastWp = usingWeapenName;
     }
 
     // Update is called once per frame
@@ -85,6 +104,26 @@ public class Player_Main : Humanoid,ITakingDamage
 
         playerImageBody.sortingOrder = -(int)transform.localPosition.y;//改变角色图层
         CheckDeath();
+
+
+        if (theHp != LastHp)
+        {
+            //Debug.LogError("TEST01");
+            Main_EventCenter.instance.E_OnGetPlayerCurrentHp(theHp);
+            LastHp = theHp;
+        }
+        if (playerEx != LastEx)
+        {
+            //Debug.LogError("TEST02");
+            Main_EventCenter.instance.E_OnGetPlayerCurrentEX(playerEx);
+            LastEx = playerEx;
+        }
+        if (usingWeapenName != LastWp)
+        {
+            //Debug.LogError("TEST03");
+            Main_EventCenter.instance.E_OnGetPlayerCurrentWpName(usingWeapenName);
+            LastWp = usingWeapenName;
+        }
     }
 
     private void FixedUpdate()
@@ -131,7 +170,7 @@ public class Player_Main : Humanoid,ITakingDamage
 
             //=====
 
-            startShooting = Input.GetButton("Attack");
+            startShooting = inputCenter.Attack_Button();
             if(startShooting == true)
             {
                 enemySeeker.SetActive(true);
@@ -157,7 +196,7 @@ public class Player_Main : Humanoid,ITakingDamage
 
             attackTarget.x = targetMark.transform.position.x;
             
-            attackTarget.y = targetMark.transform.position.y - 0.75f;
+            attackTarget.y = targetMark.transform.position.y;
 
             Vector2 lookDir = attackTarget - (Vector2)gunTrans.position;
             lookDir = lookDir.normalized;
@@ -211,6 +250,7 @@ public class Player_Main : Humanoid,ITakingDamage
             theAn.Play("Hurt" + selfID.ToString());
             theHp -= _f;
             Main_EventCenter.instance.E_OnPlayerHurt(theHp);
+            //Main_EventCenter.instance.E_OnGetPlayerCurrentHp(theHp);
         }
     }
 
@@ -228,4 +268,6 @@ public class Player_Main : Humanoid,ITakingDamage
             }
         }
     }
+
+
 }

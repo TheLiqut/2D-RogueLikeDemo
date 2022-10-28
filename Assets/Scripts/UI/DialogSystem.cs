@@ -7,7 +7,6 @@ public class DialogSystem : MonoBehaviour
 {
     [Header("对话组件")]
     public Text charText;
-    //public Image faceImage;
     public float showTextSpeed;
     public bool textFinished = true;
     public bool cancelText;
@@ -20,8 +19,6 @@ public class DialogSystem : MonoBehaviour
     {
         GetFileList(textFile);
         StartCoroutine(SetTextUI());
-        //charText.text = textList[textIndex];
-        //textIndex++;
     }
     private void Update()
     {
@@ -41,13 +38,12 @@ public class DialogSystem : MonoBehaviour
 
     public void ShowText()
     {
-        if (Input.GetButtonDown("Check"))
+        if (Player_Main.instance.inputCenter.Check_ButtonDown() 
+            && Player_Main.instance.inputCenter.state == InputCenter.CheckState.inChating)
         {
             if (textFinished && !cancelText)
             {
                 StartCoroutine(SetTextUI());
-                //charText.text = textList[textIndex];
-                //textIndex++;
             }
             else if (!textFinished)
             {
@@ -55,10 +51,12 @@ public class DialogSystem : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Check") && textIndex == textList.Count - 1)
+        if (Player_Main.instance.inputCenter.Check_ButtonDown() && textIndex == textList.Count - 1 
+            && Player_Main.instance.inputCenter.state == InputCenter.CheckState.inChating)
         {
             Main_EventCenter.instance.E_OnStopChat();
             textIndex = 0;
+            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.def);
             gameObject.SetActive(false);
             return;
         }
@@ -69,7 +67,6 @@ public class DialogSystem : MonoBehaviour
     {
         textFinished = false;
         charText.text = "";
-        //Debug.Log(textList[textIndex]);
         switch (textList[textIndex].Trim())
         {
             case "A":
@@ -96,11 +93,6 @@ public class DialogSystem : MonoBehaviour
                 
                 break;
         }
-        /*for (int i = 0; i < textList[textIndex].Length; i++)
-        {
-            charText.text += textList[textIndex][i];
-            yield return new WaitForSeconds(showTextSpeed);
-        }*/
         int i = 0;
         while (!cancelText && i < textList[textIndex].Length - 1)
         {

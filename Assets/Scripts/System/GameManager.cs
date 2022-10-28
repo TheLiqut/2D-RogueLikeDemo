@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [Header("=====设置关卡=====")]
     [Range(1,3)]public int currentDifficulty;
     public float UpdateDelayTime;
     public bool enemySeted;
     public List<Transform> setPointList = new List<Transform>();
+    public List<GameObject> enemyRunAwayPointList = new List<GameObject>();
     public List<GameObject> enemyList_1 = new List<GameObject>();
     public List<GameObject> enemyList_2 = new List<GameObject>();
     public List<GameObject> enemyList_3 = new List<GameObject>();
@@ -22,10 +24,24 @@ public class GameManager : MonoBehaviour
     [Header("其它")]
     public bool levelFinished;
 
-
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            if (instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
     private void Start()
     {
         Main_EventCenter.instance.onEnemyTransUpdate += AddTransList;
+        Main_EventCenter.instance.onEnemyRunAwayPointUpdate += AddRunAwayList;
         Main_EventCenter.instance.onEnemyDead += EnemyCountReduce;
         currentDifficulty = Player_Main.instance.playingDifficulty;
     }
@@ -45,7 +61,12 @@ public class GameManager : MonoBehaviour
         setPointList.Add(_t);
     }
 
-    
+    public void AddRunAwayList(GameObject _t)
+    {
+        enemyRunAwayPointList.Add(_t);
+    }
+
+
     public void EnemySetRound1()
     {
         switch (currentDifficulty)

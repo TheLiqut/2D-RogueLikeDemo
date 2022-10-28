@@ -15,7 +15,10 @@ public class Player_AutoAimEnemy : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            if (collision.GetComponent<Enemy_Main_BD>().theHp > 0)
+            {
                 player.targetEnemy = collision.gameObject;
+            }
         }
     }
 }

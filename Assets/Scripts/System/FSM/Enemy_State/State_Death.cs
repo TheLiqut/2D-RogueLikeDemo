@@ -26,7 +26,7 @@ public class State_Death : State_Base
 
         //玩家特殊状态-击杀恢复
         if(Global_GameManager.instance.speStateForPlayer == 1 &&
-          Player_Main.instance.theHp < (10 + Player_Main.instance.theLevel_Hp))
+          Player_Main.instance.theHp < Player_Main.instance.playerData.playerHp)
         {
             Player_Main.instance.theHp += 1;
         }

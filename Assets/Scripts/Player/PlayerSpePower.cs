@@ -16,7 +16,7 @@ public class PlayerSpePower : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Attack2"))
+        if (player.inputCenter.Attack2_ButtonDown())
         {
             UseSpePower();
         }
