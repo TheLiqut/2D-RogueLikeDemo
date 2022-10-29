@@ -14,7 +14,7 @@ public class ChatButton : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Player_Main.instance.inputCenter.takingTextAsset = textFiles[Global_GameManager.instance.usingLanguage];
-            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.readyStartChat);
+            Player_Main.instance.inputCenter.readyStartChat = true;
             UI_Manager.instance.infoMain.SetActive(true);
         }
     }
@@ -24,7 +24,7 @@ public class ChatButton : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             UI_Manager.instance.infoMain.SetActive(false);
-            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.def);
+            Player_Main.instance.inputCenter.readyStartChat = false;
             Main_EventCenter.instance.E_OnStopChat();
         }
     }

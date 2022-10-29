@@ -9,7 +9,7 @@ public class Main_EventCenter : MonoBehaviour
     public event Action onPlayerDead;
     public event Action<float> onPlayerHurt;
     public event Action<int> onPlayerExUp;
-    public event Action<TextAsset> onStartChat;
+    //public event Action<TextAsset> onStartChat;
     public event Action onStopChat;
     public event Action onStartResting;
     public event Action<Transform> onEnemyTransUpdate;
@@ -76,13 +76,13 @@ public class Main_EventCenter : MonoBehaviour
         }
     }
 
-    public void E_OnStartChat(TextAsset _file)//开始对话事件通知
+    /*public void E_OnStartChat(TextAsset _file)//开始对话事件通知
     {
         if (onStartChat != null)
         {
             onStartChat(_file);
         }
-    }
+    }*/
 
     public void E_OnEnemyTransUpdate(Transform _t)
     {

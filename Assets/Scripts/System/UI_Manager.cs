@@ -32,28 +32,26 @@ public class UI_Manager : MonoBehaviour
     public void Start()
     {
         Main_EventCenter.instance.onPlayerDead += ShowDead;
-        Main_EventCenter.instance.onStartChat += StartChar;
+        Player_Main.instance.inputCenter.onStartChat += StartChar;//InputCenter
         Main_EventCenter.instance.onStopChat += StopChar;
     }
 
-    public void ShowDead()//订阅玩家死亡
+    public void ShowDead()//此方法订阅玩家死亡
     {
         deadUI.SetActive(true);
         canRestart = true;
     }
 
-    public void OpenChar(TextAsset _file)//通知弹出对话
-    {
-        Main_EventCenter.instance.E_OnStartChat(_file);
-        Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.inChating);
-    }
-    public void StartChar(TextAsset _file)//订阅弹出对话
+    public void StartChar(TextAsset _file)
     {
         dialog_Main.textFile = _file;
         charPanel_Main.SetActive(true);
+        UI_Manager.instance.infoMain.SetActive(false);
+        Player_Main.instance.inputCenter.readyStartChat = false;
+        //Debug.LogError("Check");
     }
 
-    public void StopChar()//订阅停止对话
+    public void StopChar()//此方法订阅停止对话
     {
         charPanel_Main.SetActive(false);
     }

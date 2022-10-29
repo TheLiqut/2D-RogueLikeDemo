@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChangePlayerSpeState : MonoBehaviour
 {
-    public bool canCheck;
+    private bool canCheck;
     public TextAsset thisSpeStateNameFile;
     [Header("切换的特殊状态")]
     public SpeState speState;
@@ -14,14 +14,17 @@ public class ChangePlayerSpeState : MonoBehaviour
         killHeal,
         AutoHeal
     };
-
+    private void Start()
+    {
+        Player_Main.instance.inputCenter.onChangePlayerSpeState += ChangePlayerSpeStateActMain;//InputCenter
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             canCheck = true;
-            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.readyChangeSpeState);
+            Player_Main.instance.inputCenter.readyChangePlayerSpeState = true;
             UI_Manager.instance.infoMain.SetActive(true);
         }
     }
@@ -31,17 +34,15 @@ public class ChangePlayerSpeState : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             canCheck = false;
-            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.def);
+            Player_Main.instance.inputCenter.readyChangePlayerSpeState = false;
             UI_Manager.instance.infoMain.SetActive(false);
         }
     }
 
-    void Update()
+    public void ChangePlayerSpeStateActMain()
     {
-        if (Player_Main.instance.inputCenter.state == InputCenter.CheckState.readyChangeSpeState 
-            && Player_Main.instance.inputCenter.Check_ButtonDown() && canCheck == true)
+        if(canCheck == true)
         {
-             //进行检查。切换状态
             switch (speState)
             {
                 case SpeState.none:

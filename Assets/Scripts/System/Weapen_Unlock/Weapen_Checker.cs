@@ -9,7 +9,7 @@ public class Weapen_Checker : MonoBehaviour
     public SaveManager_WeapenList w_Saver;
     public Weapen_Data weapenData;
     public int thisWeapenID;
-    public bool checking;
+    public bool canCheck;
     public bool unLocked;
 
     public GameObject showInfo;
@@ -27,15 +27,15 @@ public class Weapen_Checker : MonoBehaviour
         priceText.text = weapenData.weapList[thisWeapenID]._weapenPrice.ToString();
         unLocked = weapenData.weapList[thisWeapenID]._unLocked;
         buyedText.SetActive(weapenData.weapList[thisWeapenID]._unLocked);
+        //
+        Player_Main.instance.inputCenter.onCheckWeapen += CheckWeapenActMain;//InputCenter
     }
 
-
-    void Update()
+    public void CheckWeapenActMain()
     {
-        if(checking == true && Player_Main.instance.inputCenter.Check_ButtonDown() 
-            && Player_Main.instance.inputCenter.state == InputCenter.CheckState.readyGetWeapen)
+        if(canCheck == true)
         {
-            if(unLocked == true)
+            if (unLocked == true)
             {
                 EquipWeapons();
             }
@@ -50,9 +50,9 @@ public class Weapen_Checker : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            checking = true;
-            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.readyGetWeapen);
+            Player_Main.instance.inputCenter.readyCheckWeapen = true;
             showInfo.SetActive(true);
+            canCheck = true;
         }
     }
 
@@ -60,9 +60,9 @@ public class Weapen_Checker : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            checking = false;
-            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.def);
+            Player_Main.instance.inputCenter.readyCheckWeapen = false;
             showInfo.SetActive(false);
+            canCheck = false;
         }
     }
 

@@ -38,8 +38,7 @@ public class DialogSystem : MonoBehaviour
 
     public void ShowText()
     {
-        if (Player_Main.instance.inputCenter.Check_ButtonDown() 
-            && Player_Main.instance.inputCenter.state == InputCenter.CheckState.inChating)
+        if (Player_Main.instance.inputCenter.Check_ButtonDown())
         {
             if (textFinished && !cancelText)
             {
@@ -51,12 +50,11 @@ public class DialogSystem : MonoBehaviour
             }
         }
 
-        if (Player_Main.instance.inputCenter.Check_ButtonDown() && textIndex == textList.Count - 1 
-            && Player_Main.instance.inputCenter.state == InputCenter.CheckState.inChating)
+        if (Player_Main.instance.inputCenter.Check_ButtonDown() && textIndex == textList.Count - 1)
         {
             Main_EventCenter.instance.E_OnStopChat();
             textIndex = 0;
-            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.def);
+            Player_Main.instance.inputCenter.readyStartChat = false;
             gameObject.SetActive(false);
             return;
         }

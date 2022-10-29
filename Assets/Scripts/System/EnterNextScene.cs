@@ -17,13 +17,15 @@ public class EnterNextScene : MonoBehaviour
     private void Start()
     {
         Main_EventCenter.instance.onLevelFinished += CheckLevelFinished;
+        //
+        Player_Main.instance.inputCenter.onEnterNextScene += EnterNextSceneActMain;//InputCenter
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.readyEnterNextScene);
             UI_Manager.instance.infoMain.SetActive(true);
+            Player_Main.instance.inputCenter.readyEnterNextScene = true;
             canCheck = true;
         }
     }
@@ -32,9 +34,9 @@ public class EnterNextScene : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Player_Main.instance.inputCenter.CheckStateChange(InputCenter.CheckState.def);
             UI_Manager.instance.infoMain.SetActive(false);
             showInfo2.SetActive(false);
+            Player_Main.instance.inputCenter.readyEnterNextScene = false;
             canCheck = false;
         }
     }
@@ -44,11 +46,11 @@ public class EnterNextScene : MonoBehaviour
         isLevelFinished = true;
     }
 
-    void Update()
+    public void EnterNextSceneActMain()
     {
-        if (Player_Main.instance.inputCenter.state == InputCenter.CheckState.readyEnterNextScene && Player_Main.instance.inputCenter.Check_ButtonDown() && canCheck == true)
+        if(canCheck == true)
         {
-            if(isIntoBossRoom == false)
+            if (isIntoBossRoom == false)
             {
                 Player_Main.instance.transSceneCode = playerChangeSceneCode;
                 SceneManager.LoadScene(nextSceneName);
